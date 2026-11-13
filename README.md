@@ -14,3 +14,4 @@ GOTINGCO, RYAN REY A.
 MALINAO, JEKAIAH LI HOWARD R.
 
 CAPSTONE DETAILS:
+This capstone is a Learning Management System created using GUI Java Swing.
