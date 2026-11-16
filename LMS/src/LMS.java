@@ -20,45 +20,57 @@ public class LMS {
     private JButton submitButton;
     private String name;
     private String password;
+    private ArrayList<User> users;
 
     private final String fileUsers = "user.dat";
+
+    private ArrayList<User> loadusers(){
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileUsers))) {
+                return (ArrayList<Student>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                return new ArrayList<>();
+            }
+        }
+
+    
+    private void searchUser() {
+    
+        String enteredName = userNameTxtField.getText().trim();
+        String enteredID = userIDTxtField.getText().trim();
+    
+        for (User user : users) {
+    
+            if (user.getName().equalsIgnoreCase(enteredName) &&
+                user.getId().equals(enteredID)) {
+    
+                JOptionPane.showMessageDialog(
+                    lmsUIScreen,
+                    "User found! Welcome, " + user.getName()
+                );
+    
+                return;
+            }
+        }
+    
+        JOptionPane.showMessageDialog(
+            lmsUIScreen,
+            "User does not exist or the information is incorrect."
+        );
+    }
+
 
     public LMS(){
 
         lmsUIScreen.setPreferredSize(new Dimension(400, 200));
 
-//        ArrayList<User> listToSave = new ArrayList<>();
-//        //--- loading the array list to check if the account is created ---
-//        @SuppressWarnings("unchecked")
-//        public static ArrayList<User> loadList(User) {
-//            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(User))) {
-//                return (ArrayList<Student>) ois.readObject();
-//            } catch (IOException | ClassNotFoundException e) {
-//                e.printStackTrace();
-//                return new ArrayList<>();
-//            }
-//        }
-//
-//            //--- Making the create account for Student and Teachers---
-//            // 1. Create and populate the ArrayList
-//
-//            listToSave.add(new Student("Alice", 101));
-//            listToSave.add(new Student("Bob", 102));
-//
-//            // 2. Save the ArrayList to a file
-//            saveList(listToSave, filename);
-//
-//            // 3. Load the ArrayList back from the file
-//            ArrayList<Student> loadedList = loadList(filename);
-//                System.out.println("Loaded Students: " + loadedList);
-//
-//        public static void saveList(ArrayList<Student> list, String filename) {
-//            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-//                oos.writeObject(list);
-//                System.out.println("List saved successfully.");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+        // load array of users;
+        users = loadusers();
+
+        // search inputed id and username. then see if they match;
+        submitButton.addActionListener(e -> searchuser());
+
+        
         }
             public static void main(String[] args) {
             JFrame frame = new JFrame("LMS");
