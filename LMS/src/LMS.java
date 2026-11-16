@@ -28,7 +28,7 @@ public class LMS {
         lmsUIScreen.setPreferredSize(new Dimension(400, 200));
 
 //        ArrayList<User> listToSave = new ArrayList<>();
-//
+//        //--- loading the array list to check if the account is created ---
 //        @SuppressWarnings("unchecked")
 //        public static ArrayList<User> loadList(User) {
 //            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(User))) {
@@ -39,7 +39,7 @@ public class LMS {
 //            }
 //        }
 //
-//
+//            //--- Making the create account for Student and Teachers---
 //            // 1. Create and populate the ArrayList
 //
 //            listToSave.add(new Student("Alice", 101));
