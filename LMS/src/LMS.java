@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LMS {
+    // for switcing panels
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
+    private StudentLMS studentLMS;
+    private TeacherLMS teacherLMS;
+    //-------------------------
 
     private JTextField userNameTxtField;
     private JPanel lmsUIScreen;
@@ -26,7 +32,7 @@ public class LMS {
 
     private ArrayList<User> loadusers(){
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileUsers))) {
-                return (ArrayList<Student>) ois.readObject();
+                return (ArrayList<User>) ois.readObject();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return new ArrayList<>();
@@ -42,7 +48,17 @@ public class LMS {
         for (User user : users) {
     
             if (user.getName().equalsIgnoreCase(enteredName) &&
-                user.getId().equals(enteredID)) {
+                user.getID().equals(enteredID)) {
+
+                // to swicth panel;
+//                if (user.getType().equalsIgnoreCase("Student")) {
+//
+//                    cardLayout.show(mainPanel, "STUDENT");
+//
+//                } else if (user.getType().equalsIgnoreCase("Teacher")) {
+//
+//                    cardLayout.show(mainPanel, "TEACHER");
+//                }
     
                 JOptionPane.showMessageDialog(
                     lmsUIScreen,
@@ -64,11 +80,22 @@ public class LMS {
 
         lmsUIScreen.setPreferredSize(new Dimension(400, 200));
 
+        cardLayout = new CardLayout();
+        mainPanel.setLayout(cardLayout);
+
+        studentLMS = new StudentLMS();
+        teacherLMS = new TeacherLMS();
+
+        mainPanel.add(lmsUIScreen, "Login");
+        mainPanel.add(studentLMS.getPanel(), "Student");
+        mainPanel.add(teacherLMS.getPanel(), "Teacher");
+
+
         // load array of users;
         users = loadusers();
 
         // search inputed id and username. then see if they match;
-        submitButton.addActionListener(e -> searchuser());
+        submitButton.addActionListener(e -> searchUser());
 
         
         }
