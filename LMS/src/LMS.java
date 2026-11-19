@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LMS {
-    // for switcing panels
+    // TEST for switcing panels
     private JPanel mainPanel;
     private CardLayout cardLayout;
     private StudentLMS studentLMS;
@@ -50,7 +50,7 @@ public class LMS {
             if (user.getName().equalsIgnoreCase(enteredName) &&
                 user.getID().equals(enteredID)) {
 
-                // to swicth panel;
+                // (TO FIGURE OUT) to swicth panel;
 //                if (user.getType().equalsIgnoreCase("Student")) {
 //
 //                    cardLayout.show(mainPanel, "STUDENT");
