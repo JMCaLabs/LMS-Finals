@@ -40,13 +40,14 @@ public class LMS {
         }
 
 
-    private void searchUser() {
+    private void searchUser() throws LogInException{
+        
 
         String enteredID = userIDTxtField.getText().trim();
         String enteredPassword = new String(pswrdPswrdField.getText())
 
         for (User user : users) {
-                if (user.getID().equals(enteredID)) {
+               `if (user.getID().equals(enteredID)) {
                         if(user.getPassword().equals(enteredPassword){
                             currentUser = user
                             User_UI nextPanel = new User_UI(currentUser); 
@@ -58,6 +59,14 @@ public class LMS {
                         } else {
                             pswrdPswedField.clearText();
                             counter++;
+                            if(counter >= 5){
+                               JOptionPane.showMessageDialog(
+                                 lmsUIScreen,
+                                 "Too many failed Attemps. Closing Application"
+                               );
+                               dispose();
+                               System(0);
+                            }
                             throw new LogInException().CredentialsMismatchException();
                         }
                 }else {
