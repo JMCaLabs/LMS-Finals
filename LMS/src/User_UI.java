@@ -1,19 +1,21 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
-public class Student_UI extends JFrame{
-    private JPanel pnlMainSnt;
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
+public class User_UI extends JFrame{
+    private JPanel pnlMainUser;
+    private JTable courseTbl;
 
-    public Student_UI(Student s) {
+    public User_UI(User u) {
+        DefaultTableModel t = new DefaultTableModel(0, 0);
 
+        courseTbl.setModel(t);
+
+        for(Course c : u.getAssignedCourses()) {
+            t.addRow(new Object[]{c.getCourseName()});
+        }
     }
 
     public static void main(String[] args) {
-
+        
     }
 }
