@@ -1,5 +1,5 @@
 //Exceptions that are thrown for the entire project
-public class LMSException extends Exception{
+public absract class LMSException extends Exception{
 
     public LMSException(String s) {super(s);}
 
