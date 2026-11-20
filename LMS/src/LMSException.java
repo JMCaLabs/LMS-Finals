@@ -34,7 +34,7 @@ public absract class LMSException extends Exception{
     // If the credentials of the user do not match but does exist, throw this exception.
     public static class CredentialsMismatchException extends LMSException {
         public CredentialsMismatchException() {
-            super("Username, ID, or Password do not match.");
+            super("ID or Password do not match.");
         }
     }
 }
