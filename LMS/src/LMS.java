@@ -37,22 +37,27 @@ public class LMS {
     
     private void searchUser() {
     
-        String enteredName = userNameTxtField.getText().trim();
         String enteredID = userIDTxtField.getText().trim();
+        String enteredPassword = new String(pswrdPswrdField.getText())
     
         for (User user : users) {
-    
-            if (user.getName().equalsIgnoreCase(enteredName) &&
+            try{
+                if (user.getPassword().equalsIgnoreCase(enteredPassword) &&
                 user.getID().equals(enteredID)) {
-                if(user.getPassword().equals(enteredPassword){
-                    currentUser = user
-                        if (currentUser instanceof Teacher){
-                            
+                    if(user.getPassword().equals(enteredPassword){
+                        currentUser = user
+                        
+                        User_UI nextPanel = new User_UI(currentUser); 
+                    }
+                }
                     JOptionPane.showMessageDialog(
                         lmsUIScreen,
                         "User found! Welcome, " user.getName()
                         
                 );
+                        
+            } catch()
+            
     
                 return;
             }
