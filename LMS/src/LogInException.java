@@ -1,4 +1,4 @@
-//Exceptions that are thrown for the entire project
+//Exceptions that are thrown from the Log In UI
 public absract class LogInException extends Exception{
 
     public LogInException(String s) {super(s);}
