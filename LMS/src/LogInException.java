@@ -1,7 +1,7 @@
 //Exceptions that are thrown for the entire project
-public absract class LMSException extends Exception{
+public absract class LogInException extends Exception{
 
-    public LMSException(String s) {super(s);}
+    public LogInException(String s) {super(s);}
 
     // If string length is not exactly 11 (and does not contain dash in specific indices?) throw this exception .
     public static class InvalidIdFormatException extends LMSException {
