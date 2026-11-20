@@ -1,7 +1,8 @@
-import javax.security.auth.login.LoginException;
+import javax.security.auth.login.CredentialException;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
-import java.awt.event.*;
 
 public class createNewUser extends JFrame{
     private JTextField nameTextField;
@@ -16,6 +17,10 @@ public class createNewUser extends JFrame{
     private JRadioButton studentRadioButton;
     private JRadioButton teacherRadioButton;
     private JPanel createUserPanel;
+    private JButton loginButton;
+    char defaultEchoChar = passPasswordField.getEchoChar();
+
+
     private void creatingNewUser(List<User> users){
         String enteredID = idTextField.getText().trim();
         String enteredName = nameTextField.getText();
@@ -24,11 +29,11 @@ public class createNewUser extends JFrame{
         User addedUser = null;
         try{
             if(!enteredPassword.equals(confirmPassword)){
-                throw new Exception();
+                throw new LogInException.CredentialsMismatchException();
             }
             for(User user : users){
                 if(enteredID.equals(user.getID())){
-                    throw new Exception();
+                    throw new LogInException.UserAlreadyExistsException();
                 }
             }
             if(studentRadioButton.isSelected()){
@@ -38,20 +43,29 @@ public class createNewUser extends JFrame{
                 addedUser = new Teacher(enteredID, enteredName, enteredPassword);
                 users.add(addedUser);
             }
+            if(addedUser == null){
+                throw new Exception();
+            }
             JOptionPane.showMessageDialog(
                     null,
                     "You have successfully created a new " + addedUser.getClass().getName() + " User"
             );
-            new LogIn(users);
-            this.dispose();
+            new Login(users);
+            dispose();
         }catch(Exception e){
-            System.out.println("Error");
+            String message = e.getMessage();
+            JOptionPane.showMessageDialog(
+                    null,
+                    message,
+                    "Login Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }
 
     private void showPassword(JPasswordField passwordField){
         if(passwordField.getEchoChar() == 0){
-            passwordField.setEchoChar('*');
+            passwordField.setEchoChar(defaultEchoChar);
         }else{
             passwordField.setEchoChar((char) 0);
         }
@@ -67,5 +81,12 @@ public class createNewUser extends JFrame{
         createNewUserButton.addActionListener(e -> creatingNewUser(users));
         passShowButton.addActionListener(e -> showPassword(passPasswordField));
         checkPassShowButton.addActionListener(e -> showPassword(checkPassPasswordField));
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Login(users);
+                dispose();
+            }
+        });
     }
 }
