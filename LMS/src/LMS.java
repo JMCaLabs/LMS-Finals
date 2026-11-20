@@ -22,6 +22,7 @@ public class LMS {
     private String password;
     private ArrayList<User> users;
     private User currentUser;
+    private int counter = 1;
 
     private final String fileUsers = "user.dat";
 
@@ -39,15 +40,17 @@ public class LMS {
     
         String enteredID = userIDTxtField.getText().trim();
         String enteredPassword = new String(pswrdPswrdField.getText())
-    
+        
         for (User user : users) {
                 if (user.getID().equals(enteredID)) {
-                    for(int i = 1; i <= 5; i++){
                         if(user.getPassword().equals(enteredPassword){
                             currentUser = user
                             User_UI nextPanel = new User_UI(currentUser); 
                         } else {
-                            
+                            pswrdPswedField.clearText();
+                            counter++;
+                            JOptionPane.showMessageDialog(
+                            throw new 
                         }
                     }
                 } else {
