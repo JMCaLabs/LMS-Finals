@@ -3,7 +3,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class User_UI extends JFrame{
     private JPanel pnlMainUser;
-    private JTable courseTbl;
+    private JTable tblCourse;
 
     public User_UI(User u) {
         DefaultTableModel t = new DefaultTableModel(0, 0);
