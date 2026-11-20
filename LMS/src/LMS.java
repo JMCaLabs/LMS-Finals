@@ -11,13 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LMS {
-    // TEST for switcing panels
-    private JPanel mainPanel;
-    private CardLayout cardLayout;
-    private StudentLMS studentLMS;
-    private TeacherLMS teacherLMS;
-    //-------------------------
-
+    
     private JTextField userNameTxtField;
     private JPanel lmsUIScreen;
     private JTextField userIDTxtField;
@@ -27,6 +21,7 @@ public class LMS {
     private String name;
     private String password;
     private ArrayList<User> users;
+    private User currentUser;
 
     private final String fileUsers = "user.dat";
 
@@ -49,20 +44,13 @@ public class LMS {
     
             if (user.getName().equalsIgnoreCase(enteredName) &&
                 user.getID().equals(enteredID)) {
-
-                // (TO FIGURE OUT) to swicth panel;
-//                if (user.getType().equalsIgnoreCase("Student")) {
-//
-//                    cardLayout.show(mainPanel, "STUDENT");
-//
-//                } else if (user.getType().equalsIgnoreCase("Teacher")) {
-//
-//                    cardLayout.show(mainPanel, "TEACHER");
-//                }
-    
-                JOptionPane.showMessageDialog(
-                    lmsUIScreen,
-                    "User found! Welcome, " + user.getName()
+                if(user.getPassword().equals(enteredPassword){
+                    currentUser = user
+                        new coursePane(currentUser)
+                    JOptionPane.showMessageDialog(
+                        lmsUIScreen,
+                        "User found! Welcome, " user.getName()
+                        
                 );
     
                 return;
@@ -75,8 +63,9 @@ public class LMS {
         );
     }
 
+    
 
-    public LMS(){
+    public LMS(List<User> users){
 
         lmsUIScreen.setPreferredSize(new Dimension(400, 200));
 
@@ -113,6 +102,9 @@ public class LMS {
 
     }
 
+    if (currentUser instanceof Teacher){
+    sadasdasdasdasdasasasdaddsad
+}
 
 
 
