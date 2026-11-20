@@ -46,7 +46,8 @@ public class LMS {
                 user.getID().equals(enteredID)) {
                 if(user.getPassword().equals(enteredPassword){
                     currentUser = user
-                        new coursePane(currentUser)
+                        if (currentUser instanceof Teacher){
+                            
                     JOptionPane.showMessageDialog(
                         lmsUIScreen,
                         "User found! Welcome, " user.getName()
@@ -102,8 +103,7 @@ public class LMS {
 
     }
 
-    if (currentUser instanceof Teacher){
-    sadasdasdasdasdasasasdaddsad
+    
 }
 
 
