@@ -1,25 +1,38 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        User currentUser = null;
-        Teacher teacher = new Teacher("25-1932-23", "Teacher 1", "00000000");
-        teacher.assignCourse(new Course("1567", "CSIT125"));
-        teacher.assignCourse(new Course("231", "CSIT111"));
-        Student student = new Student("25-9849-135", "Student Name", "00000000");
-        Teacher teacher2 = new Teacher("25-2131-23", "Teacher 2", "00000000");
-        List<User> users = new ArrayList<User>();
-        users.add(teacher);
-        users.add(student);
-        users.add(teacher2);
-        String inputID = "25-9849-135";
-        String inputName = "Student Name";
-        String inputPass = "00000000";
+    private static <T> List<T> loadListData(String filename){
+        File file = new File(filename);
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            return (List<T>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 
-        //THIS IS FOR LOGIN (makes a loop that goes through each user in the list users
-        // checks if ID, name, and input pass is the same, if yes it saves that user into current user
-        System.out.println(currentUser);
-        new createNewUser(users);
+    private static <T> void saveListData(List<T> list, String filename){
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(list);
+            System.out.println("Data saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        List<User> users = loadListData("data/users.dat");
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            saveListData(users, "data/users.dat");
+            System.out.println("All data saved safely on exit.");
+        }));
+
+        new Login(users);
     }
 }
