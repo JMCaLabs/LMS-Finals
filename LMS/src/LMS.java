@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LMS {
+public class LogIn {
 
     private JTextField userNameTxtField;
     private JPanel lmsUIScreen;
@@ -47,7 +47,7 @@ public class LMS {
         String enteredPassword = new String(pswrdPswrdField.getText())
 
         for (User user : users) {
-               `if (user.getID().equals(enteredID)) {
+               if (user.getID().equals(enteredID)) {
                         if(user.getPassword().equals(enteredPassword){
                             currentUser = user
                             User_UI nextPanel = new User_UI(currentUser); 
@@ -77,7 +77,7 @@ public class LMS {
 
 
 
-    public LMS(List<User> users){
+    public LMS(List<User> users) throws LogInException{
 
         lmsUIScreen.setPreferredSize(new Dimension(400, 200));
 
@@ -102,8 +102,11 @@ public class LMS {
         }
             public static void main(String[] args) {
             JFrame frame = new JFrame("LMS");
-
-            LMS lmsUI = new LMS();
+            
+             try{
+               LMS lmsUI = new LMS();
+            }
+            
 
             frame.setContentPane(lmsUI.lmsUIScreen);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
