@@ -59,7 +59,6 @@ public class LMS {
                             pswrdPswedField.clearText();
                             counter++;
                             throw new LogInException().CredentialsMismatchException();
-                            break;
                         }
                 }else {
                     throw new LogInException().UserDNEException();
