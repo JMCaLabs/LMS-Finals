@@ -41,14 +41,17 @@ public class LMS {
         String enteredPassword = new String(pswrdPswrdField.getText())
     
         for (User user : users) {
-                if (user.getName().equalsIgnoreCase(enteredPassword) &&
-                user.getID().equals(enteredID)) {
-                    if(user.getPassword().equals(enteredPassword){
-                        currentUser = user
-                        
-                        User_UI nextPanel = new User_UI(currentUser); 
+                if (user.getID().equals(enteredID)) {
+                    for(int i = 1; i <= 5; i++){
+                        if(user.getPassword().equals(enteredPassword){
+                            currentUser = user
+                            User_UI nextPanel = new User_UI(currentUser); 
+                        } else {
+                            
+                        }
                     }
-                }
+                } else {
+                    throws 
                     JOptionPane.showMessageDialog(
                         lmsUIScreen,
                         "User found! Welcome, " user.getName()
