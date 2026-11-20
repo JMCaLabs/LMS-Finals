@@ -23,8 +23,8 @@ public class Course implements Serializable {
     public List<Assignment> getAssignments(){
         return assignments;
     }
-    public void createAssignment(String assignmentName, String assignmentDetails){
-        assignments.add(new Assignment(assignmentName, assignmentDetails));
+    public void createAssignment(String assignmentID, String title, String instruction){
+        assignments.add(new Assignment(assignmentID, title, instruction));
     }
     @Override
     public String toString(){
