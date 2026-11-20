@@ -19,5 +19,8 @@ GEROGALIN, JOVITO V.
 GOTINGCO, RYAN REY A.
 MALINAO, JEKAIAH LI HOWARD R.
 
+11/20/2026 PROGRESS DETAILS:
+Implemented createnewUser and LoginException, made Progress to the Login UI.
+
 CAPSTONE DETAILS:
 This capstone is a Learning Management System created using GUI Java Swing.
