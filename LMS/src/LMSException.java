@@ -6,7 +6,7 @@ public class LMSException extends Exception{
     // If string length is not exactly 11 (and does not contain dash in specific indices?) throw this exception .
     public static class InvalidIdFormatException extends LMSException {
         public InvalidIdFormatException() {
-            super("ID format is wrong, should be: ##-####-###");
+            super("ID format is invalid, should be: ##-####-###");
         }
     }
 
@@ -17,17 +17,17 @@ public class LMSException extends Exception{
         }
     }
 
-    // If the profile does not exist within the list when using "LogIn", throw this exception.
-    public static class ProfileAlreadyExistsException extends LMSException {
-        public ProfileAlreadyExistsException() {
-            super("Profile already exists.");
+    // If the profile does exist within the list when using "LogIn", throw this exception.
+    public static class UserAlreadyExistsException extends LMSException {
+        public UserAlreadyExistsException() {
+            super("User already exists.");
         }
     }
 
-    // If the profile does exist within the list when using "CreateNew", throw this exception.
-    public static class ProfileDNEException extends LMSException {
-        public ProfileDNEException() {
-            super("Profile does not exist.");
+    // If the profile does not exist within the list when using "CreateNew", throw this exception.
+    public static class UserDNEException extends LMSException {
+        public UserDNEException() {
+            super("User does not exist.");
         }
     }
 
