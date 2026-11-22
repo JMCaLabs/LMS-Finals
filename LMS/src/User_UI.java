@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
 
 public class User_UI extends JFrame{
     private JPanel pnlMainUser;
@@ -8,8 +9,8 @@ public class User_UI extends JFrame{
     private JScrollPane scrCourse;
 
 
-    public User_UI(User u, String title) {
-        super(title);
+    public User_UI(User u) {
+        super("Courses");
         String[] headers = {"Course ID", "Name"};
         DefaultTableModel t = new DefaultTableModel(headers, 0) {
             @Override
@@ -24,9 +25,9 @@ public class User_UI extends JFrame{
             t.addRow(new String[]{c.getCourseID(), c.getCourseName()});
         }
 
-        tblCourse.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblCourse.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 int row = tblCourse.rowAtPoint(e.getPoint());
                 int col = tblCourse.columnAtPoint(e.getPoint());
 
@@ -41,6 +42,12 @@ public class User_UI extends JFrame{
                 }
             }
         });
+
+        setContentPane(pnlMain);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
     
     //Sample main
@@ -49,12 +56,6 @@ public class User_UI extends JFrame{
         u.assignCourse(new Course("CSIT222", "DSA"));
         u.assignCourse(new Course("CSIT214", "Ethics"));
 
-        User_UI ui = new User_UI(u, "Courses");
-
-        ui.setContentPane(ui.pnlMain);
-        ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ui.pack();
-        ui.setLocationRelativeTo(null);
-        ui.setVisible(true);
+        User_UI ui = new User_UI(u);
     }
 }
