@@ -1,4 +1,3 @@
-import javax.security.auth.login.CredentialException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,18 +17,32 @@ public class createNewUser extends JFrame{
     private JRadioButton teacherRadioButton;
     private JPanel createUserPanel;
     private JButton loginButton;
-    char defaultEchoChar = passPasswordField.getEchoChar();
+    private char defaultEchoChar; // set in the constructor, once the form's fields exist
 
+    // ID must look like 12-3456-789
+    private static final String ID_PATTERN = "\\d{2}-\\d{4}-\\d{3}";
+    // Letters, spaces, hyphens and periods (for middle initials), e.g. "Ryan Rey A. Gotingco"
+    private static final String NAME_PATTERN = "[\\p{L} .-]+";
 
-    private void creatingNewUser(List<User> users){
+    private void creatingNewUser(){
+        List<User> users = Main.getUsers();
         String enteredID = idTextField.getText().trim();
-        String enteredName = nameTextField.getText();
+        String enteredName = nameTextField.getText().trim();
         String enteredPassword = new String(passPasswordField.getPassword());
-        String confirmPassword= new String(passPasswordField.getPassword());
+        String confirmPassword= new String(checkPassPasswordField.getPassword());
         User addedUser = null;
         try{
+            if(enteredID.isEmpty() || enteredName.isEmpty() || enteredPassword.isEmpty()){
+                throw new LogInException.EmptyFieldsException();
+            }
+            if(!enteredID.matches(ID_PATTERN)){
+                throw new LogInException.InvalidIdFormatException();
+            }
+            if(!enteredName.matches(NAME_PATTERN)){
+                throw new LogInException.InvalidNameFormatException();
+            }
             if(!enteredPassword.equals(confirmPassword)){
-                throw new LogInException.CredentialsMismatchException();
+                throw new LogInException.PasswordsDoNotMatchException();
             }
             for(User user : users){
                 if(enteredID.equals(user.getID())){
@@ -44,20 +57,20 @@ public class createNewUser extends JFrame{
                 users.add(addedUser);
             }
             if(addedUser == null){
-                throw new Exception();
+                throw new LogInException.UserTypeNotSelectedException();
             }
             JOptionPane.showMessageDialog(
                     null,
-                    "You have successfully created a new " + addedUser.getClass().getName() + " User"
+                    "You have successfully created a new " + addedUser.getClass().getSimpleName() + " User"
             );
             new Login(users);
             dispose();
-        }catch(Exception e){
+        }catch(LogInException e){
             String message = e.getMessage();
             JOptionPane.showMessageDialog(
                     null,
                     message,
-                    "Login Error",
+                    "Create Account Error",
                     JOptionPane.ERROR_MESSAGE
             );
         }
@@ -71,14 +84,16 @@ public class createNewUser extends JFrame{
         }
     }
 
-    public createNewUser(List<User> users){
+    public createNewUser(){
+        List<User> users = Main.getUsers();
+        defaultEchoChar = passPasswordField.getEchoChar();
         setContentPane(createUserPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
+        idTextField.setToolTipText("Format: ##-####-###");
 
-        createNewUserButton.addActionListener(e -> creatingNewUser(users));
+        createNewUserButton.addActionListener(e -> creatingNewUser());
         passShowButton.addActionListener(e -> showPassword(passPasswordField));
         checkPassShowButton.addActionListener(e -> showPassword(checkPassPasswordField));
         loginButton.addActionListener(new ActionListener() {
@@ -88,5 +103,6 @@ public class createNewUser extends JFrame{
                 dispose();
             }
         });
+        setVisible(true); // last, once the window is fully set up
     }
 }
