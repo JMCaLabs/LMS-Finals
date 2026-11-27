@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.List;
+import java.awt.*;
 
 public class Login extends JFrame{
     private JPanel loginPanel;
@@ -13,6 +14,21 @@ public class Login extends JFrame{
     User currentUser = null;
 
     private void logInUser(){
+
+        IDTextField.putClientProperty( "FlatLaf.style", "arc: 100" );
+        //IDTextField.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("icons/user.svg"));
+        IDTextField.putClientProperty("FlatLaf.style", "arc: 100; margin: 6,10,6,10");
+
+        passwordPasswordField.putClientProperty("JTextField.placeholderText", "Password");
+        passwordPasswordField.putClientProperty("JPasswordField.showRevealButton", true);
+        passwordPasswordField.putClientProperty("FlatLaf.style", "arc: 100; margin: 6,10,6,10");
+
+
+        loginButton.putClientProperty("FlatLaf.style",
+                "arc: 100; font: bold; background: #4F46E5; foreground: #ffffff; margin: 8,16,8,16");
+        createNewAccountButton.putClientProperty("JButton.buttonType", "borderless");
+
+        getRootPane().setDefaultButton(loginButton); // Enter key logs in
         List<User> users = Main.getUsers();
         String enteredID = IDTextField.getText().trim();
         String enteredPassword = new String(passwordPasswordField.getPassword());
@@ -64,6 +80,8 @@ public class Login extends JFrame{
         setSize(400, 250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        IDTextField.putClientProperty("JTextField.placeholderText", "##-####-###");
 
         loginButton.addActionListener(e -> logInUser());
         showButton.addActionListener(e -> showPassword(passwordPasswordField));

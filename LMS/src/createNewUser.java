@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatClientProperties;
 
 public class createNewUser extends JFrame{
     private JTextField nameTextField;
@@ -31,6 +33,9 @@ public class createNewUser extends JFrame{
         String enteredPassword = new String(passPasswordField.getPassword());
         String confirmPassword= new String(checkPassPasswordField.getPassword());
         User addedUser = null;
+
+//        enteredID.putClientProperty("JTextField.placeholderText", "##-####-##");
+//        enteredName.putClientProperty("JTextField.placeholderText", "Enter Name");
         try{
             if(enteredID.isEmpty() || enteredName.isEmpty() || enteredPassword.isEmpty()){
                 throw new LogInException.EmptyFieldsException();
@@ -85,13 +90,15 @@ public class createNewUser extends JFrame{
     }
 
     public createNewUser(){
+        FlatDarkLaf.setup();
         List<User> users = Main.getUsers();
         defaultEchoChar = passPasswordField.getEchoChar();
         setContentPane(createUserPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
-        idTextField.setToolTipText("Format: ##-####-###");
+        idTextField.putClientProperty("JTextField.placeholderText", "##-####-###");
+        nameTextField.putClientProperty("JTextField.placeholderText", "(First Name, Middle Initial, Family Name)");
 
         createNewUserButton.addActionListener(e -> creatingNewUser());
         passShowButton.addActionListener(e -> showPassword(passPasswordField));
