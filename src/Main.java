@@ -67,6 +67,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        // FlatLaf's optional native library makes Java 24+ print "restricted method" warnings.
+        // The look and feel works the same without it.
+        System.setProperty("flatlaf.useNativeLibrary", "false");
         FlatDarkLaf.setup();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
